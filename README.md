@@ -8,6 +8,7 @@ npm i
 npm install @nextui-org/react framer-motion
 npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
+npm i @types/node
 ```
 In `tailwind.config.js` add this:
 ```javascript

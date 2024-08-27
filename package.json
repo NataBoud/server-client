@@ -17,6 +17,7 @@
   "dependencies": {
     "@nextui-org/react": "^2.4.6",
     "@reduxjs/toolkit": "^2.0.1",
+    "@types/node": "^22.5.0",
     "framer-motion": "^11.3.30",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
