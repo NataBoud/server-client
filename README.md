@@ -10,6 +10,8 @@ npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 npm i @types/node
 npm i react-router-dom
+npm i react-icons
+npm i react-hook-form
 ```
 In `tailwind.config.js` add this:
 ```javascript
