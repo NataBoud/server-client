@@ -2,7 +2,7 @@ import type { User } from "../types";
 import { api } from "./api"
 
 // Définir les types ou interfaces pour éviter la répétition
-interface AuthCredentials {
+type AuthCredentials = {
     email: string;
     password: string;
     name: string;
