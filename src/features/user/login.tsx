@@ -54,7 +54,7 @@ export const Login: React.FC<Props> = ({ setSelected }) => {
     };
 
     return (
-        <form action="" onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
             <Input
                 control={control}
                 name="email"
