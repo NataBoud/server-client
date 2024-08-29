@@ -32,16 +32,20 @@ const slice = createSlice({
     extraReducers: (builder) => {
         builder
             .addMatcher(userApi.endpoints.login.matchFulfilled, (state, action) => {
-                state.token = action.payload.token
+                state.token = action.payload.token;
                 state.isAuthenticated = true;
             })
             .addMatcher(userApi.endpoints.current.matchFulfilled, (state, action) => {
-                state.current = action.payload
+                state.current = action.payload;
                 state.isAuthenticated = true;
             })
-            .addMatcher(userApi.endpoints.current.matchFulfilled, (state, action) => {
-                state.user = action.payload;
-            })
+            .addMatcher(
+                userApi.endpoints.getUserById.matchFulfilled,
+                (state, action) => {
+                    state.user = action.payload
+                },
+            )
+          
     }
 });
 

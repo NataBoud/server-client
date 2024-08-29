@@ -5,6 +5,8 @@ import { Outlet, useNavigate } from 'react-router-dom'
 import { selectIsAuthenticated, selectUser } from '../../features/user/userSlice'
 import { useEffect } from 'react'
 import { useAppSelector } from '../../app/hooks'
+import { Profile } from '../prolife'
+
 
 export const Layout = () => {
   const isAutenticated = useAppSelector(selectIsAuthenticated);
@@ -12,10 +14,11 @@ export const Layout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log('User value:', user);
     if (!isAutenticated) {
       navigate('/auth')
     }
-  }, []);
+  }, [isAutenticated, user]);
 
   return (
     <>
@@ -27,7 +30,10 @@ export const Layout = () => {
         <div className="flex-1 p-4">
           <Outlet />
         </div>
-        <div>
+        <div className="flex-2 p-4">
+          <div className="flex-col flex gap-5">
+            {!user && <Profile />}
+          </div>
         </div>
       </Container>
     </>
