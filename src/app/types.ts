@@ -26,7 +26,7 @@ export type Follows = {
 }
 
 export type Post = {
-    id: string
+    _id: string
     content: string
     author: User
     authorId: string
