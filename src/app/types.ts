@@ -46,10 +46,11 @@ export type Like = {
 }
 
 export type Comment = {
-    id: string
+    _id: string
     content: string
     user: User
     userId: string
     post: Post
     postId: string
+    createdAt: Date
 }

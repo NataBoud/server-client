@@ -113,7 +113,7 @@ export const Card: React.FC<Props> = ({
             likedByUser
                 ? await unlikePost(id).unwrap()
                 : await likePost({ postId: id }).unwrap()
-            await refetchPosts()
+            await triggerGetPostById(id).unwrap()
         } catch (err) {
             if (hasErrorField(err)) {
                 setError(err.data.error)
@@ -123,6 +123,9 @@ export const Card: React.FC<Props> = ({
         }
     };
 
+    // Debugging output
+    console.log('Current User ID:', currentUser?._id);
+    console.log('Author ID:', author._id);
 
     return (
         <NextUiCard className='mb-5'>
