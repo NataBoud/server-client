@@ -15,7 +15,6 @@ export const CurrentPost = () => {
 
   const { content, _id, author, comments, likes, likedByUser, createdAt } = data;
 
-  console.log('Comments Data:', data.comments);
   return (
     <>
       <GoBack />

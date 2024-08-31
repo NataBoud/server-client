@@ -14,11 +14,10 @@ export const Layout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('User value:', user);
     if (!isAutenticated) {
       navigate('/auth')
     }
-  }, [isAutenticated, user]);
+  }, []);
 
   return (
     <>

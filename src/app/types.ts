@@ -18,7 +18,7 @@ export type User = {
 }
 
 export type Follows = {
-    id: string
+    _id: string
     follower: User
     followerId: string
     following: User
