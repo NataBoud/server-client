@@ -29,13 +29,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
 
     return (
         <ThemeContext.Provider value={{ theme, toggleTheme }}>
-            <main
-                style={{           
-                    overflowX: 'auto', 
-                    overflowY: 'auto'
-                }}
-                className={`${theme} text-foreground bg-background`}
-            >
+            <main className={`${theme} text-foreground bg-background `}>
                 {children}
             </main>
         </ThemeContext.Provider>

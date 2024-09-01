@@ -1,7 +1,7 @@
 import { Header } from '../header'
 import { Container } from './container'
 import { Navbar } from '../navbar'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { selectIsAuthenticated, selectUser } from '../../features/user/userSlice'
 import { useEffect } from 'react'
 import { useAppSelector } from '../../app/hooks'
@@ -12,12 +12,16 @@ export const Layout = () => {
   const isAutenticated = useAppSelector(selectIsAuthenticated);
   const user = useAppSelector(selectUser);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     if (!isAutenticated) {
       navigate('/auth')
     }
-  }, []);
+  });
+
+  // Determine if current path is the UserProfile path
+  const isUserProfilePage = location.pathname.startsWith('/users/');
 
   return (
     <>
@@ -29,11 +33,15 @@ export const Layout = () => {
         <div className="flex-1 p-4">
           <Outlet />
         </div>
-        <div className="flex-2 p-4">
-          <div className="flex-col flex gap-5">
-            {!user && <Profile />}
-          </div>
-        </div>
+        <>
+          {!isUserProfilePage && (
+            <div className="flex-2 p-4">
+              <div className="flex-col flex gap-5">
+                {!user && <Profile />}
+              </div>
+            </div>
+          )}
+        </>
       </Container>
     </>
   )

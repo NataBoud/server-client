@@ -113,8 +113,12 @@ export const Card: React.FC<Props> = ({
             likedByUser
                 ? await unlikePost(id).unwrap()
                 : await likePost({ postId: id }).unwrap()
-            await triggerGetPostById(id).unwrap()
-            await refetchPosts()
+            if (cardFor === 'current-post') {
+                 await triggerGetPostById(id).unwrap()
+            }
+            if (cardFor === 'post') {
+                await triggerGetAllPosts().unwrap()
+            }     
         } catch (err) {
             if (hasErrorField(err)) {
                 setError(err.data.error)
@@ -150,7 +154,7 @@ export const Card: React.FC<Props> = ({
             </CardHeader>
             <CardBody className="px-3 py-2 mb-5">
                 <Typography
-                    className={cardFor === "post" ? "line-clamp-3" : ""} // line-clamp-3 uniquement pour "post"
+                    className={cardFor === "post" ? "line-clamp-2" : ""} // line-clamp-3 uniquement pour "post"
                 >
                     {content}
                 </Typography>

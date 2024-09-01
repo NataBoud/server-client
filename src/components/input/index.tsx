@@ -1,5 +1,4 @@
 import { useController, type Control } from 'react-hook-form'; // useController est utilisé pour contrôler un champ de formulaire
-import type React from 'react'; 
 import { Input as NextInput } from '@nextui-org/react'; 
 
 type Props = {

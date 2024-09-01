@@ -19,16 +19,16 @@ import { CiEdit } from "react-icons/ci";
 import { ProfileInfo } from "../../components/profile-info";
 import { formatToClientDate } from "../../utils/formatToClientDate";
 import { CountInfo } from "../../components/count-info";
+import { EditProfile } from "../../components/edit profile";
 
 export const UserProfile = () => {
   const { id } = useParams<{ id: string }>();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const currentUser = useAppSelector(selectCurrent); 
-  // console.log("Current User from Redux Store:", currentUser);  // Vérifiez les données de l'utilisateur actuel
+
 
   const { data } = useGetUserByIdQuery(id ?? "");
-  // console.log("User Data from Query:", data);  // Vérifiez les données de l'utilisateur récupérées par le hook
 
   const [followUser] = useFollowUserMutation();
   const [unfolowUser] = useUnfollowUserMutation();
@@ -39,33 +39,39 @@ export const UserProfile = () => {
 
   useEffect(() => () => {
     dispatch(resetUser());
-  }, []);
-
-  if (!data) {
-    return null;
-  };
+  });
 
   const handleFollow = async () => {
     try {
       if (id) {
         if (data?.isFollowing) {
-          const response = await unfolowUser(id).unwrap();
-          console.log("Unfollow Response:", response);  // Vérifiez la réponse ici
+          await unfolowUser(id).unwrap();
+
         } else {
-          const response = await followUser({ followingId: id }).unwrap();
-          console.log("Follow Response:", response);  // Vérifiez la réponse ici
+          await followUser({ followingId: id }).unwrap();
         }
-
-        // Recharger l'utilisateur actuel et la liste des utilisateurs
-        const updatedUser = await triggerGetUserByIdQuery(id).unwrap();
-        console.log("Updated User Data:", updatedUser);  // Vérifiez les données de l'utilisateur mises à jour
-
-        const currentUserData = await triggerCurrentQuery().unwrap();
-        console.log("Current User Data:", currentUserData);  // Vérifiez les données de l'utilisateur actuel mises à jour
+        await triggerGetUserByIdQuery(id).unwrap();
+        await triggerCurrentQuery().unwrap();
       }
     } catch (error) {
-      console.log("Error in handleFollow:", error);  // Vérifiez les erreurs ici
+      console.log("Error in handleFollow:", error);
     }
+  };
+
+  const handleClose = async () => {
+    try {
+      if (id) {
+        await triggerGetUserByIdQuery(id)
+        await triggerCurrentQuery()
+        onClose()
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  if (!data) {
+    return null;
   };
 
 
@@ -78,7 +84,6 @@ export const UserProfile = () => {
             src={`${BASE_URL}${data.avatarUrl}`}
             alt={data.name}
             width={200}
-            height={200}
             className="border-4 border-white"
           />
           <div className="flex flex-col text-2xl font-bold gap-4 items-center">
@@ -112,6 +117,7 @@ export const UserProfile = () => {
           </div>
         </Card>
       </div>
+      <EditProfile isOpen={isOpen} onClose={handleClose} user={data} />
     </>
   );
 };

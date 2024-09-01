@@ -10,20 +10,20 @@ export type User = {
     bio?: string
     location?: string
     posts: Post[]
-    following: Follows[]
-    followers: Follows[]
+    following: User[]
+    followers: User[]
     likes: Like[]
     comments: Comment[]
     isFollowing?: boolean
 }
 
-export type Follows = {
-    _id: string
-    follower: User
-    followerId: string
-    following: User
-    followingId: string
-}
+// export type Follows = {
+//     _id: string
+//     follower: User
+//     followerId: string
+//     following: User
+//     followingId: string
+// }
 
 export type Post = {
     _id: string
